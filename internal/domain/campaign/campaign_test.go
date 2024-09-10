@@ -1,29 +1,24 @@
 package campaign
 
 import (
-	"fmt"
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
-// é sempre bom testar o ponto de integração
-// como por exemplo quando eu cria uma nova campanha
-// testamos o comportamento
-
 func TestNewCampaign(t *testing.T) {
+	// 3 A's to test
+	// Arrange
+	assertTest := assert.New(t)
 	name := "Campaign X"
 	content := "Body"
 	contacts := []string{"email1@gmail.com", "email2@gmail.com"}
 
+	// Act
 	campaign := NewCampaign(name, content, contacts)
-	fmt.Println(campaign)
-	
-	if campaign.ID != "1" {
-		t.Errorf("expected 1")
-	} else if campaign.Name != name {
-		t.Errorf("expected correct name")
-	} else if campaign.Content != content {
-		t.Errorf("expected correct content")
-	} else if len(campaign.Contacts) != len(contacts) {
-		t.Errorf("expected correct contacts")
-	}
+
+	// Assert
+	assertTest.Equal(campaign.ID, "1")
+	assertTest.Equal(campaign.Name, name)
+	assertTest.Equal(campaign.Content, content)
+	assertTest.Equal(len(campaign.Contacts), len(contacts))
 }
